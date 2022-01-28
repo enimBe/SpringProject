@@ -3,6 +3,8 @@ package com.enimbe.memo.user.dao;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.enimbe.memo.user.model.User;
+
 @Repository
 public interface UserDAO {
 
@@ -13,5 +15,8 @@ public interface UserDAO {
 			@Param("email") String email
 			);
 	
+	public User selectUser(
+			@Param("loginId") String loginId,
+			@Param("password") String password);
 	
 }

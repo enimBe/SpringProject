@@ -25,23 +25,100 @@
 		<c:import url="/WEB-INF/jsp/include/header.jsp" />
 		
 		<section class="content d-flex justify-content-center">
-		
+			<form id="loginForm">
 			<div class="signIn-box my-5">
 				
 				<input type="text" class="form-control mt-3" placeholder="Username">
 				<input type="password" class="form-control mt-3" placeholder="password">
 				
-				<button type="button" class="btn btn-secondary btn-block mt-3">로그인</button>
+				<button type="submit" class="btn btn-secondary btn-block mt-3">로그인</button>
 				
-				<a href="/user/signup_view">회원가입</a>
-			
+				<div class="text-center mt-2">
+					<a href="/user/signup_view">회원가입</a>
+				</div>
+				
 			</div>
-		
+			</form>
 		</section>
 		
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 
 	</div>
+	
+	
+	<script>
+		
+		$(document).ready(function() {
+			
+			$("#loginForm").on("submit", function(e) {
+				e.preventDefault();
+				
+				var loginId = $("#loginIdInput").val();
+				var password = $("#passwordInput").val();
+				
+				if(loginId == "") {
+					alert("아이디를 입력하세요");
+					return;
+				}
+				
+				
+				if(password == "") {
+					alert("비밀번호를 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"post",
+					url:"/user/sign_in",
+					data:{"loginId":loginId, "password":password},
+					success:function(data) {
+						if(data.result == "success") {
+							location.href="/post/listView";
+						}else {
+							alert("아이디/비밀번호를 확인하세요");
+						}
+					},
+					error:fuction() {
+						alert("에러발생");
+					}
+				});
+			
+			});
+			
+			
+			
+		});
+	
+	</script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
